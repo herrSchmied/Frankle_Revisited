@@ -26,7 +26,8 @@ public class Toolbox
 		
 		return true;
 	}
-	
+
+
 	public static Set<Set<Integer>> createFamily(Set<Set<Integer>> origin) throws FraenkleException
 	{
 
@@ -48,9 +49,9 @@ public class Toolbox
 				creation.add(s1);
 			}
 		}
-		
-		assert(isFamily(creation));
 
+		if(creation.size()>origin.size())return createFamily(creation);
+		
 		return creation;
 	}
 	
@@ -80,12 +81,18 @@ public class Toolbox
 		return output;
 	}
 	
-	public static Set<Set<Integer>> getBasis(Set<Set<Integer>> fam, Set<Set<Integer>> basis) throws FraenkleException
+	public static Set<Set<Integer>> getBasis(Set<Set<Integer>> fam) throws FraenkleException
+	{
+
+		Set<Set<Integer>> empty = new HashSet<>();
+		return getBasis(fam, empty);
+	}
+
+	private static Set<Set<Integer>> getBasis(Set<Set<Integer>> fam, Set<Set<Integer>> basis) throws FraenkleException
 	{
 		
 		if(basis==null)throw new FraenkleException("Basis can't be null");
 		if(fam==null)throw new FraenkleException("Family can't be null");
-		
 		
 		Set<Set<Integer>> tmpFam = createFamily(basis);
 		
