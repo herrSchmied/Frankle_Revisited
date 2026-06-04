@@ -1,7 +1,7 @@
 package jborg.fraenkle.checkFraenkle;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -28,8 +28,28 @@ public class ToolboxTests
         basis = Toolbox.getMaximalExpandingBasis(0, 4);
         
         fam = Toolbox.createFamily(basis);
+        assert(fam.size()==(int)Math.pow(2, basis.size())-1);
+
+        Set<Set<Integer>> basisFound = Toolbox.getBasis(fam);
         
-        System.out.println(basis);
-        System.out.println(fam.size()+fam.toString());
+        assert(basis.equals(basisFound));
+        
+        System.out.println(basisFound);
+        
+        Set<Integer> mem1 = new HashSet<>(Arrays.asList(0,1,2));
+        Set<Integer> mem2 = new HashSet<>(Arrays.asList(3));
+        Set<Integer> mem3 = new HashSet<>(Arrays.asList(4,5));
+        Set<Integer> mem4 = new HashSet<>(Arrays.asList(6,7));
+        Set<Integer> mem5 = new HashSet<>(Arrays.asList(6));
+        Set<Integer> mem6 = new HashSet<>(Arrays.asList(7));
+
+        basis = new HashSet<>(Arrays.asList(mem1, mem2, mem3, mem4, mem5, mem6));
+        fam = Toolbox.createFamily(basis);
+        
+        Set<Set<Integer>> realBasis = new HashSet<>(Arrays.asList(mem1, mem2, mem3, mem5, mem6));
+        basisFound = Toolbox.getBasis(fam);
+        
+        assert(basisFound.equals(realBasis));
+    
     }
 }

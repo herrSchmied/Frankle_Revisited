@@ -8,6 +8,23 @@ import java.util.Set;
 public class Toolbox
 {
 
+    public static Set<Integer> getHead(Set<Set<Integer>> fam)
+    {
+    	
+    	int size = 0;
+    	Set<Integer> largest = new HashSet<>();
+    	for(Set<Integer> famMember: fam)
+    	{
+    		if(famMember.size()>size)
+    		{
+    			largest.clear();
+    			largest.addAll(famMember);
+    		}
+    	}
+    	
+    	return largest;
+    }
+
 	public static boolean isFamily(Set<Set<Integer>> V) throws FraenkleException
 	{
 		if(V==null)throw new FraenkleException("Can't test null.");
@@ -35,18 +52,19 @@ public class Toolbox
 
 		Set<Set<Integer>> creation = new HashSet<>();
 
-		for(Set<Integer> s: origin)
+		creation.addAll(origin);
+		
+		for(Set<Integer> s1: origin)
 		{
-
-			creation.add(s);
-
-			Set<Integer> s1 = new HashSet<>();
-			s1.addAll(s);
 
 			for(Set<Integer> s2: origin)
 			{
-				s1.addAll(s2);
-				creation.add(s1);
+				
+				Set<Integer> union = new HashSet<>();
+				union.addAll(s1);
+				union.addAll(s2);
+				
+				creation.add(union);
 			}
 		}
 
@@ -80,33 +98,31 @@ public class Toolbox
 
 		return output;
 	}
-	
+
 	public static Set<Set<Integer>> getBasis(Set<Set<Integer>> fam) throws FraenkleException
 	{
-
-		Set<Set<Integer>> empty = new HashSet<>();
-		return getBasis(fam, empty);
-	}
-
-	private static Set<Set<Integer>> getBasis(Set<Set<Integer>> fam, Set<Set<Integer>> basis) throws FraenkleException
-	{
 		
-		if(basis==null)throw new FraenkleException("Basis can't be null");
 		if(fam==null)throw new FraenkleException("Family can't be null");
-		
-		Set<Set<Integer>> tmpFam = createFamily(basis);
-		
-		if(tmpFam.equals(fam))return basis;
 	
-		Set<Set<Integer>> rest = metaSetMinusMetaSet(fam, tmpFam);
 		
-		int min = getSizeOfSmallestMember(rest);
-		basis.addAll(getAllOfSizeN(min, rest));
+		int min = getSizeOfSmallestMember(fam);
+		int max = getHead(fam).size();
+		Set<Set<Integer>> basis = new HashSet<>();
 		
-		basis.addAll(getBasis(fam, basis));
-		
-		return basis;
+		for(int size=min;size<=max;size++)
+		{
+			for(Set<Integer> member: getAllOfSizeN(size, fam))
+			{
+				Set<Set<Integer>>tmpFam1 = createFamily(basis);
+				basis.add(member);
+				Set<Set<Integer>>tmpFam2 = createFamily(basis);
+				if(!(tmpFam2.size()>tmpFam1.size()))basis.remove(member);
+				
+				if(tmpFam2.size()==fam.size())return basis;
+			}
+		}
 
+		throw new FraenkleException("Should not happen");
 	}
 	
 	
@@ -273,22 +289,6 @@ public class Toolbox
     	return output;
     }
     
-    public static Set<Integer> getHead(Set<Set<Integer>> fam)
-    {
-    	
-    	int size = 0;
-    	Set<Integer> largest = new HashSet<>();
-    	for(Set<Integer> famMember: fam)
-    	{
-    		if(famMember.size()>size)
-    		{
-    			largest.clear();
-    			largest.addAll(famMember);
-    		}
-    	}
-    	
-    	return largest;
-    }
     
     public static Map<Integer, Double> mapOfAbundanceRates(Set<Set<Integer>> fam) throws FraenkleException
     {
