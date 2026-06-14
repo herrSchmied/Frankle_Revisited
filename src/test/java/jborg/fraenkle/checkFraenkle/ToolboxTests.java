@@ -50,6 +50,17 @@ public class ToolboxTests
         basisFound = Toolbox.getBasis(fam);
         
         assert(basisFound.equals(realBasis));
-    
+        
+        
+        basis = Toolbox.getChainBasisWithGaps(10, 4);
+        System.out.println(basis);
+        fam = Toolbox.createFamily(basis);
+        System.out.println("Fam Size: " + fam.size());
+        
+        basis = Toolbox.getChainBasis(1, 5);
+        System.out.println(basis);
+        fam = Toolbox.createFamily(basis);
+        System.out.println("Fam Size: " + fam.size());    
+        System.out.println("Fam: " + fam);    
     }
 }

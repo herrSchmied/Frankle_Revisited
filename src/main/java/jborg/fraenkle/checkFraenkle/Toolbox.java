@@ -172,6 +172,7 @@ public class Toolbox
 	public static Set<Set<Integer>> getMinimalExpandingBasis(int min, int max) throws FraenkleException
 	{
 		
+    	if(min<0) throw new FraenkleException("Min can't be below Zero.");
     	if(min>max) throw new FraenkleException("Min can't be larger than Max.");
 
     	Set<Set<Integer>> output = new HashSet<>();
@@ -203,6 +204,8 @@ public class Toolbox
 	
 	public static Set<Set<Integer>> getMaximalExpandingBasis(int min, int max) throws FraenkleException
 	{
+
+		if(min<0) throw new FraenkleException("Min can't be below Zero.");
     	if(min>max) throw new FraenkleException("Min can't be larger than Max.");
     	
     	Set<Set<Integer>> output = new HashSet<>();
@@ -222,6 +225,7 @@ public class Toolbox
     public static Set<Set<Integer>> getStarBasis(int omnipresent, int min, int max) throws FraenkleException
     {
     	
+    	if(min<0) throw new FraenkleException("Min can't be below Zero.");
     	if(omnipresent>=min&&omnipresent<=max) throw new FraenkleException("Omnipresent Element can't be in Range.");
     	if(min>max) throw new FraenkleException("Min can't be larger than Max.");
 
@@ -243,6 +247,7 @@ public class Toolbox
     public static Set<Set<Integer>> getChainBasis(int min, int max) throws FraenkleException
     {
     	
+    	if(min<0) throw new FraenkleException("Min can't be below Zero.");
     	if(min>max) throw new FraenkleException("Min can't be larger than Max.");
 
     	Set<Set<Integer>> output = new HashSet<>();
@@ -261,9 +266,40 @@ public class Toolbox
     	return output;
     }
     
+    public static Set<Set<Integer>> getChainBasisWithGaps(int min, int nrOfLinks) throws FraenkleException
+    {
+    	
+    	if(min<0) throw new FraenkleException("Min can't be below Zero.");
+    	if(nrOfLinks<1)throw new FraenkleException("Nr of Links can't be below One.");
+
+    	Set<Set<Integer>> output = new HashSet<>();
+
+     	for(int n=min;n<min+nrOfLinks;n++)
+    	{
+     		
+     		
+     		int k;
+     		if(n==min)k=n;
+     		else k = 2*(n-min)+min;
+     		
+     		System.out.println(k);
+     		
+     		Set<Integer> famMember = new HashSet<>();
+
+    		famMember.add(k);
+    		famMember.add(k+1);
+    		famMember.add(k+2);
+
+    		output.add(famMember);
+    	}
+
+    	return output;
+    }
+
     public static Set<Set<Integer>> getRingBasis(int min, int max) throws FraenkleException
     {
     	
+    	if(min<0) throw new FraenkleException("Min can't be below Zero.");
     	if(min>max) throw new FraenkleException("Min can't be larger than Max.");
 
     	Set<Set<Integer>> output = new HashSet<>();
