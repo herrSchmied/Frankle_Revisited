@@ -5,23 +5,24 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+
 public class Toolbox
 {
 
     public static Set<Integer> getHead(Set<Set<Integer>> fam)
     {
-    	
+
     	int size = 0;
     	Set<Integer> largest = new HashSet<>();
     	for(Set<Integer> famMember: fam)
     	{
     		if(famMember.size()>size)
     		{
-    			largest.clear();
-    			largest.addAll(famMember);
+    			largest = famMember;
+    			size = famMember.size();
     		}
     	}
-    	
+
     	return largest;
     }
 
@@ -166,7 +167,7 @@ public class Toolbox
 			if(set.contains(e))cnt++;
 		}
 
-		return (double)fam.size()/(double)cnt;
+		return (double)cnt/(double)fam.size();
 	}
 		
 	public static Set<Set<Integer>> getMinimalExpandingBasis(int min, int max) throws FraenkleException

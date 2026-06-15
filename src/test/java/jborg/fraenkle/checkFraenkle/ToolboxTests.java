@@ -57,10 +57,21 @@ public class ToolboxTests
         fam = Toolbox.createFamily(basis);
         System.out.println("Fam Size: " + fam.size());
         
-        basis = Toolbox.getChainBasis(1, 5);
+        basis = Toolbox.getChainBasis(0, 11);
         System.out.println(basis);
         fam = Toolbox.createFamily(basis);
         System.out.println("Fam Size: " + fam.size());    
-        System.out.println("Fam: " + fam);    
+        System.out.println("Fam: " + fam);
+        
+        
+        for(Integer member: Toolbox.getHead(fam))
+        {
+        	System.out.println("Member of Members:" + member);
+        	System.out.println("Abundance Rate: " + Toolbox.howAbundant(member, fam));
+        	System.out.println("Is Abundant: " + Toolbox.isAbundant(member, fam));
+        }
+        
+       	System.out.println("Head: " + Toolbox.getHead(fam));
+
     }
 }
