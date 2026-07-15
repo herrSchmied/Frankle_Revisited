@@ -9,6 +9,16 @@ import java.util.Set;
 public class Toolbox
 {
 
+	public static void analyseFamiliy(Set<Set<Integer>> fam, HashMap<String, Set<Integer>> namesOfMembers) throws FraenkleException
+	{
+
+		if(!isFamily(fam))
+		{
+			System.out.println("Input is no Fam!!");
+			return;
+		}
+	}
+
     public static Set<Integer> getHead(Set<Set<Integer>> fam)
     {
 
@@ -26,22 +36,25 @@ public class Toolbox
     	return largest;
     }
 
-	public static boolean isFamily(Set<Set<Integer>> V) throws FraenkleException
+	public static boolean isFamily(Set<Set<Integer>> fam) throws FraenkleException
 	{
-		if(V==null)throw new FraenkleException("Can't test null.");
 
-		for(Set<Integer> s: V)
+		if(fam==null)throw new FraenkleException("Can't test null.");
+		if(fam.isEmpty())return false;
+		
+		for(Set<Integer> s: fam)
 		{
+
 			Set<Integer> s1 = new HashSet<>();
 			s1.addAll(s);
-			
-			for(Set<Integer> s2: V)
+
+			for(Set<Integer> s2: fam)
 			{
 				s1.addAll(s2);
-				if(!V.contains(s1))return false;
+				if(!fam.contains(s1))return false;
 			}
 		}
-		
+
 		return true;
 	}
 

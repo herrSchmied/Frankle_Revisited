@@ -36,12 +36,12 @@ public class ToolboxTests
         
         System.out.println(basisFound);
         
-        Set<Integer> mem1 = new HashSet<>(Arrays.asList(0,1,2));
-        Set<Integer> mem2 = new HashSet<>(Arrays.asList(3));
-        Set<Integer> mem3 = new HashSet<>(Arrays.asList(4,5));
-        Set<Integer> mem4 = new HashSet<>(Arrays.asList(6,7));
-        Set<Integer> mem5 = new HashSet<>(Arrays.asList(6));
-        Set<Integer> mem6 = new HashSet<>(Arrays.asList(7));
+        Set<Integer> mem1 = new HashSet<>(Arrays.asList(0,1,2,3));
+        Set<Integer> mem2 = new HashSet<>(Arrays.asList(4));
+        Set<Integer> mem3 = new HashSet<>(Arrays.asList(5,6));
+        Set<Integer> mem4 = new HashSet<>(Arrays.asList(7,8));
+        Set<Integer> mem5 = new HashSet<>(Arrays.asList(7));
+        Set<Integer> mem6 = new HashSet<>(Arrays.asList(8));
 
         basis = new HashSet<>(Arrays.asList(mem1, mem2, mem3, mem4, mem5, mem6));
         fam = Toolbox.createFamily(basis);
