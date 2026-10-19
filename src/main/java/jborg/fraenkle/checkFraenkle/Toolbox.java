@@ -113,10 +113,51 @@ public class Toolbox
 		return output;
 	}
 
+	public static Map<Integer, Set<Set<Integer>>> identifyingGenerations(Set<Set<Integer>> fam) throws FraenkleException
+	{
+		
+		if(!isFamily(fam))throw new FraenkleException("This not a Family.");
+		Map<Integer, Set<Set<Integer>>> mapOfGenerations = new HashMap<>();
+
+		Set<Set<Integer>> basis = getBasis(fam);
+		mapOfGenerations.put(0, basis);
+		
+		int genNum = 0;
+		Set<Set<Integer>> oldGens = new HashSet<>();
+		while(true)
+		{
+			Set<Set<Integer>> generation = new HashSet<>();
+			Set<Set<Integer>> beforeGen = mapOfGenerations.get(genNum);
+	
+			oldGens.addAll(beforeGen);
+
+			if(oldGens.size()==fam.size())break;
+
+			for(Set<Integer> set: oldGens)
+			{
+				for(Set<Integer> set2: oldGens)
+				{
+					Set<Integer> union = new HashSet<>();
+				
+					union.addAll(set);
+					union.addAll(set2);
+				
+					if(!oldGens.contains(union))generation.add(union);
+				}
+			}
+			
+			genNum++;
+			mapOfGenerations.put(genNum, generation);
+		}
+		
+		return mapOfGenerations;
+	}
+
 	public static Set<Set<Integer>> getBasis(Set<Set<Integer>> fam) throws FraenkleException
 	{
 		
 		if(fam==null)throw new FraenkleException("Family can't be null");
+		if(!isFamily(fam))throw new FraenkleException("This is not a Family");
 	
 		
 		int min = getSizeOfSmallestMember(fam);

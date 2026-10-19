@@ -2,6 +2,7 @@ package jborg.fraenkle.checkFraenkle;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -134,8 +135,31 @@ public class ToolboxTests
     		System.out.println(n + " is at this rate: " + a);
     		
         	
-        	Thread.sleep(1000);
+        	Thread.sleep(500);
     	}
     	System.out.println("");
+    	
+    	
+    	Map<Integer, Set<Set<Integer>>> genMap =Toolbox.identifyingGenerations(oddFam);
+    
+    	for(int n=0;n<genMap.keySet().size();n++)
+    	{
+    		System.out.println("Size: " + genMap.get(n).size());
+    		System.out.println("Generation " + n + ":");
+    		System.out.println(genMap.get(n));
+    		Thread.sleep(500);
+    	}
+    	
+    	//Just to check
+    	genMap =Toolbox.identifyingGenerations(Toolbox.createFamily(Toolbox.getMaximalExpandingBasis(0, 5)));
+        
+    	for(int n=0;n<genMap.keySet().size();n++)
+    	{
+    		System.out.println("Size: " + genMap.get(n).size());
+    		System.out.println("Generation " + n + ":");
+    		System.out.println(genMap.get(n));
+    		Thread.sleep(500);
+    	}
+
     }
 }
