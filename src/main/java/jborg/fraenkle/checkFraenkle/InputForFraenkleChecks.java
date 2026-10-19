@@ -2,22 +2,15 @@ package jborg.fraenkle.checkFraenkle;
 
 
 
-import consoleTools.InputStreamSession;
+import java.io.IOException;
 
 
 public class InputForFraenkleChecks
 {
 
-	static InputStreamSession iss;
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
 
-        System.out.println("Hello World!");
-        iss = new InputStreamSession(System.in);
-        
-        String s = iss.forcedString("Hey whats up?");
-        
-        System.out.println(s + " thats up!");
     }
     
 }
